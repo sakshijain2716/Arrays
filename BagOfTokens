@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int bagOfTokensScore(vector<int>& tokens, int power) {
+        int n = tokens.size();
+        sort(tokens.begin() , tokens.end());
+
+        if(n==1 && tokens[0]<=power)
+        return 1;
+
+        int score=0 , i=0 , j=n-1;
+        while(i<=j)
+        {
+            if(tokens[i]<=power)
+            {
+                power-=tokens[i];
+                score++;
+                i++;
+            }
+            else 
+            {
+                if(i!=j && score>=1)       //if i==j means that is the last token to consider so it will reduce the score so not consider it
+                {
+                    power+=tokens[j];
+                    score--;
+                    j--;
+                }
+            
+                else
+                break;
+            }
+        }
+        return score;
+    }
+};
