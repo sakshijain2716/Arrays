@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int numRabbits(vector<int>& answers) {
+        int n = answers.size();
+        map<int,int>mp;
+
+        for(auto it:answers)
+        mp[it]++;
+        int ans=0;
+        for(auto it:mp)
+        {
+            int same = it.first;   //ith person k jese kitne h
+            int freq = it.second;   //kitne persons ne same reply dia h
+            if(freq<=same+1)       // agr 1 person ne kha mere jesa sirf 1 or h then total 2 hojaenge
+            //agr 3(freq) logo ne bola mere jese 2(same) or h then the grp will be of three persons where each single person counts the other two
+            ans+=same+1;
+
+            else
+            {
+                if(freq%(same+1)!=0)     //groups nhi bn rhe (same+1) size k
+                ans += (freq/(same+1))*(same+1) + (same+1);
+                //    (no. of groups)*(no of person in each group) + (remaining valo ka group)
+                else
+                ans+=(freq/(same+1))*(same+1);  //bss remaining vale nhi h else same as above
+
+            }
+        }
+        return ans;
+    }
+};
