@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int jump(vector<int>& nums) {
+        int n = nums.size();
+        int mx =0;
+        int i=0,j=0 , cnt=0 ,curr=0;
+        if(n==1)
+        return 0;
+        if(nums[0]==0)
+        return -1;
+
+        while(i<n-1)
+        {
+            j = i+nums[i];
+            mx = max(j ,mx);
+            if(i == curr)
+            {
+                cnt++;
+                curr = mx;
+            }
+            i++;
+        }
+        if(curr < n-1)
+        return -1;
+        return cnt;
+    }
+};
