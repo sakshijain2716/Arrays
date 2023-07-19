@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<vector<int>> insert(vector<vector<int>>& old, vector<int>& newint) {
+        int n = old.size();
+        vector<vector<int>> ans;
+
+        for(int i=0;i<n ;i++)
+        {
+            if(old[i][1] < newint[0])
+            ans.push_back(old[i]);
+        }
+
+        for(int i=0 ; i<n ;i++)
+        {
+            if((old[i][0] >= newint[0] && old[i][0] <= newint[1]) || 
+            (old[i][0] <= newint[0] && old[i][1] >= newint[1]) || 
+            (old[i][1] >= newint[0] && old[i][1] <= newint[1]) )
+            {
+                newint[0] = min(newint[0] , old[i][0]);
+                newint[1] = max(newint[1] , old[i][1]);
+            }
+        }
+        ans.push_back(newint);
+        for(int i=0;i<n;i++)
+        {
+            if(old[i][0] > newint[1])
+            ans.push_back(old[i]);
+        }
+        return ans;
+    }
+};
