@@ -1,0 +1,40 @@
+class Solution 
+{
+    public:
+    //Function to find the maximum profit and the number of jobs done.
+    bool static comp(Job a , Job b)
+    {
+        return a.profit > b.profit;
+    }
+    vector<int> JobScheduling(Job arr[], int n) 
+    { 
+        // your code here
+        sort(arr , arr+n ,comp);
+        vector<int> slot(n,0) , res(n);
+        int jobs = 0 , mxprofit=0;
+        //iterate through all jobs
+        for(int i=0 ; i<n ; i++)
+        {
+            //finding free slot for a job
+            for(int j= arr[i].dead -1 ; j>=0 ; j--)
+            {
+                if(slot[j] == 0)
+                {
+                    slot[j] = 1;    //slot occupied
+                    res[j] = i;    //adding job to res
+                    break;
+                }
+            }
+        }
+        for(int i=0 ; i<n ; i++)
+        {
+            if(slot[i])
+            {
+                jobs++;
+                mxprofit+= arr[res[i]].profit;
+            }
+        }
+        return {jobs , mxprofit};
+        
+    } 
+};
