@@ -1,0 +1,14 @@
+class Solution {
+public:
+    int minStartValue(vector<int>& nums) {
+        int ans=0 ,sum=0;
+        for(auto it:nums)
+        {
+            sum+=it;
+            ans = min(ans,sum);     //min value all over prefix sum can have
+        }
+        // ans + x = 1     //choose x such that on adding with min value results in required result 
+        // so x = -ans+1
+        return -ans+1;
+    }
+};
