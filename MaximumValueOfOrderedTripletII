@@ -1,0 +1,35 @@
+class Solution {
+public:
+    long long maximumTripletValue(vector<int>& nums) {
+        int n = nums.size();
+        long long ans = 0;
+        // for(int j=1 ; j<n-1 ; j++)
+        // {
+        //     int i = *max_element(nums.begin() , nums.begin()+j);
+        //     int k = *max_element(nums.begin()+j+1 , nums.end());
+        //     cout<<i<<" "<<k;
+        //     long long sum = (i-nums[j])*1ll*k;
+        //     if(sum > 0 && sum > ans)
+        //     ans = sum;
+        // }
+        vector<int> left(n) , right(n);
+        left[0] = nums[0] , right[n-1] = nums[n-1];
+        for(int i=1 ; i<n ;i++)  //max from left till i
+        {
+            left[i] = max(left[i-1] , nums[i]);
+        }
+        for(int i=n-2 ; i>0 ; i--)     //max from right till i 
+        {
+            right[i] = max(right[i+1] , nums[i]);
+        }
+
+        for(int i=1 ; i<n-1 ; i++)     //if at i then nums[i] = max from left till i-1 and nums[k] = max from right (i+1)-n-1
+        {
+            long long sum = (left[i-1]-nums[i])*1ll*right[i+1];
+            if(sum > 0 && sum > ans)
+            ans = sum;
+        }
+        
+        return ans;
+    }
+};
