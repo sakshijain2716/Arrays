@@ -1,0 +1,44 @@
+class Solution {
+public:
+    int minOperations(vector<int>& nums) {
+        unordered_map<int,int>mp;
+        for(auto it:nums)
+        {
+            mp[it]++;
+        }
+
+        int op=0;
+        for(auto it:mp)
+        {
+            if(it.second%3==0)
+            {
+            op+=it.second/3;
+            // mp.erase(it.first);
+            }
+
+            else 
+            {
+                int flag=0,cnt=0;
+                for(int i=3 ; i<=it.second ; i+=3)
+                {
+                    if((it.second-i)%2==0)
+                    {
+                    cnt = (it.second-i)/2 + i/3;
+                    flag=1;
+                    // mp.erase(it.first);
+                    }
+                }
+                if(!flag)
+                {
+                    if(it.second%2==0)
+                    op+=it.second/2;
+                    else 
+                    return -1;
+                }
+                else
+                op+=cnt;
+            }
+        }
+        return op;
+    }
+};
