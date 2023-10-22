@@ -1,0 +1,30 @@
+lass Solution {
+public:
+    int minLengthAfterRemovals(vector<int>& nums) {
+        int n = nums.size();
+        if(n==1) // cannot be removed
+        return 1;
+        map<int,int>mp;  //storing count
+        for(auto it:nums)
+        mp[it]++;
+
+        if(mp.size()==n && mp.size()%2==0) 
+        return 0;
+
+        int mx=0;
+        for(auto it:mp)
+        {
+            mx = max(mx , it.second);
+        }
+        int rem = n-2*mx;
+        if(rem>=0)
+        {
+            if(n%2==0) //even-even = even  ==> rem is even
+            return 0;
+            else  //odd-even = odd => rem is odd
+            return 1;
+        }
+        else
+        return abs(rem);
+    }
+};
